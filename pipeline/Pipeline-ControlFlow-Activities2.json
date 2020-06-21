@@ -46,7 +46,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@bool(equals(variables('pipelinename'),1))",
+						"value": "@bool(variables('pipelinename'))",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
