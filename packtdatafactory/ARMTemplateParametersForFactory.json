@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "packtdatafactory"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"value": ""
+		},
+		"CosmosDbLinkedService_connectionString": {
+			"value": ""
+		},
+		"DataLakeStoreLinkedService_accountKey": {
+			"value": ""
+		},
+		"SynapseSQLPoolLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"DataLakeStoreLinkedService_properties_typeProperties_url": {
+			"value": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"NewFileTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/b85b0984-a391-4f22-a832-fb6e46c39f38/resourceGroups/packtade/providers/Microsoft.Storage/storageAccounts/packtdatalakestore"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/b85b0984-a391-4f22-a832-fb6e46c39f38/resourceGroups/packtade/providers/Microsoft.Storage/storageAccounts/packtdatalakestore"
+		}
+	}
+}

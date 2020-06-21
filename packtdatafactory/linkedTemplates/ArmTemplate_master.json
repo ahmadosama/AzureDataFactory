@@ -1,0 +1,105 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "packtdatafactory"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+		},
+		"CosmosDbLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDbLinkedService'"
+		},
+		"DataLakeStoreLinkedService_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DataLakeStoreLinkedService'"
+		},
+		"SynapseSQLPoolLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SynapseSQLPoolLinkedService'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"DataLakeStoreLinkedService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"NewFileTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/b85b0984-a391-4f22-a832-fb6e46c39f38/resourceGroups/packtade/providers/Microsoft.Storage/storageAccounts/packtdatalakestore"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/b85b0984-a391-4f22-a832-fb6e46c39f38/resourceGroups/packtade/providers/Microsoft.Storage/storageAccounts/packtdatalakestore"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureSqlDatabaseLinkedService_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
+					},
+					"CosmosDbLinkedService_connectionString": {
+						"value": "[parameters('CosmosDbLinkedService_connectionString')]"
+					},
+					"DataLakeStoreLinkedService_accountKey": {
+						"value": "[parameters('DataLakeStoreLinkedService_accountKey')]"
+					},
+					"SynapseSQLPoolLinkedService_connectionString": {
+						"value": "[parameters('SynapseSQLPoolLinkedService_connectionString')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"DataLakeStoreLinkedService_properties_typeProperties_url": {
+						"value": "[parameters('DataLakeStoreLinkedService_properties_typeProperties_url')]"
+					},
+					"trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					},
+					"NewFileTrigger_properties_typeProperties_scope": {
+						"value": "[parameters('NewFileTrigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
