@@ -1,0 +1,24 @@
+{
+	"name": "NewFileTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Pipeline-Controlflow-Activities",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/ecommerce/blobs/orders/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/b85b0984-a391-4f22-a832-fb6e46c39f38/resourceGroups/packtade/providers/Microsoft.Storage/storageAccounts/packtdatalakestore",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
