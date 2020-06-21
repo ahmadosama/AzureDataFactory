@@ -49,6 +49,86 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Pipeline-Controlflow-Activities-2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Pipeline Status",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[usp_GetPipelineStatus]",
+								"storedProcedureParameters": {
+									"key": {
+										"type": "String",
+										"value": "Pipeline-Controlflow-Activities"
+									}
+								},
+								"queryTimeout": "02:00:00"
+							},
+							"dataset": {
+								"referenceName": "GetPipelineConfiguration",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
+					},
+					{
+						"name": "ExecutePipeline",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Get Pipeline Status",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@bool(activity('Get Pipeline Status').output.firstRow.Value)",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Execute Pipeline-Controlflow-Activities",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "Pipeline-Controlflow-Activities",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {}
+									}
+								}
+							]
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/GetPipelineConfiguration')]",
+				"[concat(variables('factoryId'), '/pipelines/Pipeline-Controlflow-Activities')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Pipeline-Controlflow-Activities')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -230,12 +310,6 @@
 						}
 					}
 				],
-				"parameters": {
-					"test": {
-						"type": "string",
-						"defaultValue": "1"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -246,7 +320,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/copiedfilenames')]",
+			"name": "[concat(parameters('factoryName'), '/GetPipelineConfiguration')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
