@@ -176,6 +176,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"test": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
 		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
