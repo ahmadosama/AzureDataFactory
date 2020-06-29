@@ -1,0 +1,32 @@
+{
+	"name": "Pipeline-Controlflow-HiveTransformation",
+	"properties": {
+		"activities": [
+			{
+				"name": "OrdersbyStorage",
+				"type": "HDInsightHive",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "ecommerce/hivescript/hivequery",
+					"scriptLinkedService": {
+						"referenceName": "DataLakeStoreLinkedService",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "HDInsightClusterLinkedService",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
