@@ -15,14 +15,14 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"scriptPath": "ecommerce/hivescript/hivequery",
+					"scriptPath": "/queries/hivequery.hql",
 					"scriptLinkedService": {
-						"referenceName": "DataLakeStoreLinkedService",
+						"referenceName": "PacktStorage",
 						"type": "LinkedServiceReference"
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "HDInsightClusterLinkedService",
+					"referenceName": "HDInsightLinkedService",
 					"type": "LinkedServiceReference"
 				}
 			}
