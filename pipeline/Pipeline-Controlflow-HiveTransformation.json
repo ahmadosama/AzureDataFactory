@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "OrdersbyStorage",
+				"name": "SalesByCountry",
 				"type": "HDInsightHive",
 				"dependsOn": [],
 				"policy": {
