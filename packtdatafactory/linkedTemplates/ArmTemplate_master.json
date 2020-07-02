@@ -23,6 +23,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DataLakeStoreLinkedService'"
 		},
+		"HDInsightLinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsightLinkedService'"
+		},
+		"PacktStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PacktStorage'"
+		},
 		"SynapseSQLPoolLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SynapseSQLPoolLinkedService'"
@@ -34,6 +50,30 @@
 		"DataLakeStoreLinkedService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "b85b0984-a391-4f22-a832-fb6e46c39f38"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "packtade"
+		},
+		"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "576de443-07c3-49ed-af47-ee7ecfd0d16c"
+		},
+		"HDInsightLinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "8a4925a9-fd8e-4866-b31c-f719fb05dce6"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "sshadmin"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sshadmin"
 		},
 		"NewFileTrigger_properties_typeProperties_scope": {
 			"type": "string",
@@ -82,8 +122,20 @@
 					"DataLakeStoreLinkedService_accountKey": {
 						"value": "[parameters('DataLakeStoreLinkedService_accountKey')]"
 					},
+					"PacktStorage_connectionString": {
+						"value": "[parameters('PacktStorage_connectionString')]"
+					},
 					"SynapseSQLPoolLinkedService_connectionString": {
 						"value": "[parameters('SynapseSQLPoolLinkedService_connectionString')]"
+					},
+					"HDInsightLinkedService_clusterPassword": {
+						"value": "[parameters('HDInsightLinkedService_clusterPassword')]"
+					},
+					"HDInsightLinkedService_clusterSshPassword": {
+						"value": "[parameters('HDInsightLinkedService_clusterSshPassword')]"
+					},
+					"HDInsightLinkedService_servicePrincipalKey": {
+						"value": "[parameters('HDInsightLinkedService_servicePrincipalKey')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
@@ -93,6 +145,24 @@
 					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_tenant": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_tenant')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterUserName')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterSshUserName')]"
 					},
 					"NewFileTrigger_properties_typeProperties_scope": {
 						"value": "[parameters('NewFileTrigger_properties_typeProperties_scope')]"

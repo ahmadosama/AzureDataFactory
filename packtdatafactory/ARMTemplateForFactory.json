@@ -23,6 +23,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DataLakeStoreLinkedService'"
 		},
+		"HDInsightLinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsightLinkedService'"
+		},
+		"PacktStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PacktStorage'"
+		},
 		"SynapseSQLPoolLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SynapseSQLPoolLinkedService'"
@@ -34,6 +50,30 @@
 		"DataLakeStoreLinkedService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://packtdatalakestore.dfs.core.windows.net"
+		},
+		"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "b85b0984-a391-4f22-a832-fb6e46c39f38"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "packtade"
+		},
+		"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "576de443-07c3-49ed-af47-ee7ecfd0d16c"
+		},
+		"HDInsightLinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "8a4925a9-fd8e-4866-b31c-f719fb05dce6"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "sshadmin"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sshadmin"
 		},
 		"NewFileTrigger_properties_typeProperties_scope": {
 			"type": "string",
@@ -320,6 +360,44 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Pipeline-Controlflow-HiveTransformation')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SalesByCountry",
+						"type": "HDInsightHive",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"scriptPath": "/queries/hivequery.hql",
+							"scriptLinkedService": {
+								"referenceName": "PacktStorage",
+								"type": "LinkedServiceReference"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "HDInsightLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/PacktStorage')]",
+				"[concat(variables('factoryId'), '/linkedServices/HDInsightLinkedService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/GetPipelineConfiguration')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -488,6 +566,66 @@
 						"type": "SecureString",
 						"value": "[parameters('DataLakeStoreLinkedService_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HDInsightLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "hadoop",
+					"clusterSize": 1,
+					"timeToLive": "00:15:00",
+					"version": "3.6",
+					"hostSubscriptionId": "[parameters('HDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]",
+					"clusterResourceGroup": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterResourceGroup')]",
+					"servicePrincipalId": "[parameters('HDInsightLinkedService_properties_typeProperties_servicePrincipalId')]",
+					"osType": "Linux",
+					"tenant": "[parameters('HDInsightLinkedService_properties_typeProperties_tenant')]",
+					"clusterNamePrefix": "",
+					"clusterUserName": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterUserName')]",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_clusterPassword')]"
+					},
+					"clusterSshUserName": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterSshUserName')]",
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_clusterSshPassword')]"
+					},
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_servicePrincipalKey')]"
+					},
+					"linkedServiceName": {
+						"referenceName": "PacktStorage",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": "",
+					"subnetName": "",
+					"virtualNetworkId": ""
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/PacktStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PacktStorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('PacktStorage_connectionString')]"
 				}
 			},
 			"dependsOn": []
