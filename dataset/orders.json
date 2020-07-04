@@ -1,10 +1,6 @@
 {
 	"name": "orders",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "DataLakeStoreLinkedService",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

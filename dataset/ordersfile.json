@@ -1,10 +1,6 @@
 {
 	"name": "ordersfile",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "DataLakeStoreLinkedService",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"filename": {
 				"type": "String",

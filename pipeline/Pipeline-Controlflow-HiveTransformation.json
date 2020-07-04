@@ -20,10 +20,6 @@
 						"referenceName": "PacktStorage",
 						"type": "LinkedServiceReference"
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "HDInsightLinkedService",
-					"type": "LinkedServiceReference"
 				}
 			}
 		],
